@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.Domain.Entities
 {
-    public sealed class Category
+    public sealed class Category : EntityBase
     {
         public Category(int id, string name)
         {
@@ -15,7 +15,6 @@ namespace CleanArchitecture.Domain.Entities
             ValidateDomain(name);
         }
 
-        public int Id { get; private set; }
         public string Name { get; private set; }
         public ICollection<Product> Products { get; set; }
 
@@ -24,6 +23,11 @@ namespace CleanArchitecture.Domain.Entities
             DomainExceptionValidation.When(string.IsNullOrEmpty(name), "Nome inválido, por favor preencha corretamente!");
             DomainExceptionValidation.When(name.Length < 3, "Name inválido, muito curto, minimo de 3 caracteres");
             Name = name;
+        }
+
+        public void Update(string name)
+        {
+            ValidateDomain(name);
         }
     }
 }
