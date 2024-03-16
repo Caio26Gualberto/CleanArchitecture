@@ -38,7 +38,7 @@ namespace CleanArchitecture.Domain.Entities
             DomainExceptionValidation.When(description.Length < 5, "Descrição inválida, muito curto, minimo de 5 caracteres");
             DomainExceptionValidation.When(price < 0, "Preço inválido, não pode ser menor que 0");
             DomainExceptionValidation.When(stock < 0, "Estoque inválido, não pode ser menor que 0");
-            DomainExceptionValidation.When(image.Length > 250, "Nome da imagem inválida, muito grande, máximo de 250 caracteres");
+            DomainExceptionValidation.When(image?.Length > 250, "Nome da imagem inválida, muito grande, máximo de 250 caracteres");
             
             Name = name;
             Description = description;
