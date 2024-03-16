@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Infra.IoC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.WebUI", "CleanArchitecture.WebUI\CleanArchitecture.WebUI.csproj", "{4905A27B-22A4-44FD-B62C-5F0F2CA04087}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C53AC17F-4D34-46A7-BAAA-3CA9A9967C96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Domain.Tests", "CleanArchitecture.Domain.Tests\CleanArchitecture.Domain.Tests.csproj", "{C761FA51-9F72-4727-9CA1-4761E938DF5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,9 +43,16 @@ Global
 		{4905A27B-22A4-44FD-B62C-5F0F2CA04087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4905A27B-22A4-44FD-B62C-5F0F2CA04087}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4905A27B-22A4-44FD-B62C-5F0F2CA04087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C761FA51-9F72-4727-9CA1-4761E938DF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C761FA51-9F72-4727-9CA1-4761E938DF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C761FA51-9F72-4727-9CA1-4761E938DF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C761FA51-9F72-4727-9CA1-4761E938DF5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C761FA51-9F72-4727-9CA1-4761E938DF5C} = {C53AC17F-4D34-46A7-BAAA-3CA9A9967C96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8843AEDC-CB64-4320-B092-817DFB1DC711}

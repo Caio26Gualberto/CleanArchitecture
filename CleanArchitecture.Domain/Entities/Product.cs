@@ -1,6 +1,4 @@
 ﻿using CleanArchitecture.Domain.Validation;
-using static System.Net.Mime.MediaTypeNames;
-using System.Diagnostics;
 
 namespace CleanArchitecture.Domain.Entities
 {
