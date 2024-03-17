@@ -21,7 +21,7 @@ namespace CleanArchitecture.Application.Services
             var productCreateCommand = _mapper.Map<ProductCreateCommand>(productDto);
 
             if (productCreateCommand == null)
-                throw new Exception("A entidade naão foi carregada");
+                throw new Exception("A entidade não foi carregada");
 
             await _mediator.Send(productCreateCommand);
         }
@@ -31,18 +31,7 @@ namespace CleanArchitecture.Application.Services
             var productByIdQuery = new GetProductByIdQuery(id.Value);
 
             if (productByIdQuery == null)
-                throw new Exception("A entidade naão foi carregada");
-
-            var result = await _mediator.Send(productByIdQuery);
-            return _mapper.Map<ProductDTO>(result);
-        }
-
-        public async Task<ProductDTO> GetProductCategoryAsync(int? id)
-        {
-            var productByIdQuery = new GetProductByIdQuery(id.Value);
-
-            if (productByIdQuery == null)
-                throw new Exception("A entidade naão foi carregada");
+                throw new Exception("A entidade não foi carregada");
 
             var result = await _mediator.Send(productByIdQuery);
             return _mapper.Map<ProductDTO>(result);
@@ -53,7 +42,7 @@ namespace CleanArchitecture.Application.Services
             var productsQuery = new GetProductsQuery();
 
             if (productsQuery == null)
-                throw new Exception("A entidade naão foi carregada");
+                throw new Exception("A entidade não foi carregada");
 
             var result = await _mediator.Send(productsQuery);
             return _mapper.Map<IEnumerable<ProductDTO>>(productsQuery);
@@ -64,7 +53,7 @@ namespace CleanArchitecture.Application.Services
             var productRemoveCommand = new ProductRemoveCommand(id.Value);
 
             if (productRemoveCommand == null)
-                throw new Exception("A entidade naão foi carregada");
+                throw new Exception("A entidade não foi carregada");
 
             await _mediator.Send(productRemoveCommand);
         }
@@ -74,7 +63,7 @@ namespace CleanArchitecture.Application.Services
             var productCreateCommand = _mapper.Map<ProductUpdateCommand>(productDto);
 
             if (productCreateCommand == null)
-                throw new Exception("A entidade naão foi carregada");
+                throw new Exception("A entidade não foi carregada");
 
             await _mediator.Send(productCreateCommand);
         }
