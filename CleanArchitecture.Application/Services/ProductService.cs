@@ -1,54 +1,82 @@
 ﻿using AutoMapper;
 using CleanArchitecture.Application.DTOs;
 using CleanArchitecture.Application.Interfaces;
-using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Interfaces;
+using CleanArchitecture.Application.ProdcutsCQRS.Commands;
+using CleanArchitecture.Application.ProdcutsCQRS.Queries;
+using MediatR;
 
 namespace CleanArchitecture.Application.Services
 {
     public class ProductService : IProductService
     {
-        private IProductRepository _productRepository;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        public ProductService(IMediator mediator, IMapper mapper)
         {
-            _productRepository = productRepository;
+            _mediator = mediator;
             _mapper = mapper;
         }
         public async Task AddAsync(ProductDTO productDto)
         {
-            var productEntity = _mapper.Map<Product>(productDto);
-            await _productRepository.CreateAsync(productEntity);
+            var productCreateCommand = _mapper.Map<ProductCreateCommand>(productDto);
+
+            if (productCreateCommand == null)
+                throw new Exception("A entidade naão foi carregada");
+
+            await _mediator.Send(productCreateCommand);
         }
 
         public async Task<ProductDTO> GetByIdAsync(int? id)
         {
-            var productEntity = await _productRepository.GetByIdAsync(id);
-            return _mapper.Map<ProductDTO>(productEntity);  
+            var productByIdQuery = new GetProductByIdQuery(id.Value);
+
+            if (productByIdQuery == null)
+                throw new Exception("A entidade naão foi carregada");
+
+            var result = await _mediator.Send(productByIdQuery);
+            return _mapper.Map<ProductDTO>(result);
         }
 
         public async Task<ProductDTO> GetProductCategoryAsync(int? id)
         {
-            var productEntity = await _productRepository.GetProductCategoryAsync(id);
-            return _mapper.Map<ProductDTO>(productEntity);
+            var productByIdQuery = new GetProductByIdQuery(id.Value);
+
+            if (productByIdQuery == null)
+                throw new Exception("A entidade naão foi carregada");
+
+            var result = await _mediator.Send(productByIdQuery);
+            return _mapper.Map<ProductDTO>(result);
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
         {
-            var productsEntities = await _productRepository.GetProductsAsync();
-            return _mapper.Map<IEnumerable<ProductDTO>>(productsEntities);
+            var productsQuery = new GetProductsQuery();
+
+            if (productsQuery == null)
+                throw new Exception("A entidade naão foi carregada");
+
+            var result = await _mediator.Send(productsQuery);
+            return _mapper.Map<IEnumerable<ProductDTO>>(productsQuery);
         }
 
         public async Task RemoveAsync(int? id)
         {
-            var productEntity = await _productRepository.GetByIdAsync(id);
-            await _productRepository.RemoveAsync(productEntity);
+            var productRemoveCommand = new ProductRemoveCommand(id.Value);
+
+            if (productRemoveCommand == null)
+                throw new Exception("A entidade naão foi carregada");
+
+            await _mediator.Send(productRemoveCommand);
         }
 
         public async Task UpdateAsync(ProductDTO productDto)
         {
-            var productEntity = _mapper.Map<Product>(productDto);
-            await _productRepository.UpdateAsync(productEntity);
+            var productCreateCommand = _mapper.Map<ProductUpdateCommand>(productDto);
+
+            if (productCreateCommand == null)
+                throw new Exception("A entidade naão foi carregada");
+
+            await _mediator.Send(productCreateCommand);
         }
     }
 }
