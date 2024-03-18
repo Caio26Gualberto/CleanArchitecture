@@ -65,5 +65,36 @@ namespace CleanArchitecture.WebUI.Controllers
             }
             return View(category);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var categoryDto = await _categoryService.GetByIdAsync(id);
+
+            if (categoryDto == null) return NotFound();
+
+            return View(categoryDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _categoryService.RemoveAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var categoryDto = await _categoryService.GetByIdAsync(id);
+
+            if (categoryDto == null) return NotFound();
+
+            return View(categoryDto);
+        }
     }
 }
