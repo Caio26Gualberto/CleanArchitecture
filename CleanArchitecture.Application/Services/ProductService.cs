@@ -45,7 +45,7 @@ namespace CleanArchitecture.Application.Services
                 throw new Exception("A entidade não foi carregada");
 
             var result = await _mediator.Send(productsQuery);
-            return _mapper.Map<IEnumerable<ProductDTO>>(productsQuery);
+            return _mapper.Map<IEnumerable<ProductDTO>>(result);
         }
 
         public async Task RemoveAsync(int? id)
