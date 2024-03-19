@@ -21,19 +21,44 @@ namespace CleanArchitecture.WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            return View(model);
+            var result = await _authentication.RegisterUser(model.Email, model.Password);
+
+            if (result)
+                return Redirect("/");
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Tentativa inválida para registrar (Password must be strong)");
+                return View(model);
+            }
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
-            return View();
+            return View(new LoginViewModel()
+            {
+                ReturnUrl = returnUrl
+            });
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            return View(model);
+            var result = await _authentication.Authenticate(model.Email, model.Password);
+
+            if (result)
+            {
+                if (string.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return Redirect(model.ReturnUrl);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Tentativa de login inválida.");
+                return View(model);
+            }
         }
 
         public async Task<IActionResult> Logout()

@@ -12,5 +12,7 @@ namespace CleanArchitecture.WebUI.Model
         [StringLength(20, ErrorMessage = "A senha precisa ter no máximo 20 caracteres e no minimo 6", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }
